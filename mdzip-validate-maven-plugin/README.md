@@ -1,0 +1,1 @@
+This project contains a MOJO that validates an mdzip file against a pom file. 

@@ -1,0 +1,44 @@
+<component-set>
+  <components>
+    <component>
+      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+      <role-hint>mdzip</role-hint>
+      <implementation>
+        org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping
+      </implementation>
+      <configuration>
+    <phases>
+      <validate>
+        aero.albers.osmbse:mdzip-validate-maven-plugin:mdzip-validate
+      </validate>
+      <process-sources>
+        aero.albers.osmbse:mdzip-process-sources-maven-plugin:mdzip-process-sources
+      </process-sources>
+      <!-- use default install and deploy -->
+      <install>
+        org.apache.maven.plugins:maven-install-plugin:install
+      </install>
+      <deploy>
+        org.apache.maven.plugins:maven-deploy-plugin:deploy
+      </deploy>
+    </phases>
+      </configuration>
+    </component>
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>mdzip</role-hint>
+      <implementation>
+        org.apache.maven.artifact.handler.DefaultArtifactHandler
+      </implementation>
+      <configuration>
+        <!--the extension used by Maven in the repository-->
+        <extension>mdzip</extension>
+        <!--the type used when specifying dependencies etc.-->
+        <type>mdzip</type>
+        <!--the packaging used when declaring an implementation of 
+          the packaging-->
+        <packaging>mdzip</packaging>
+      </configuration>
+    </component>
+  </components>
+</component-set>

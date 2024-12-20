@@ -1,0 +1,1 @@
+This project contains a MOJO that processes the source of an mdzip in a child project. 

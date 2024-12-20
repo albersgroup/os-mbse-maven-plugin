@@ -1,0 +1,1 @@
+This base plugin contains all the resource and build step procedures for maven to recognize an mdzip packaging resource. 

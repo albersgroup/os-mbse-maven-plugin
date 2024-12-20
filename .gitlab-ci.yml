@@ -1,0 +1,13 @@
+image: maven:3.8.3-openjdk-17
+build:
+  stage: build
+  script:
+    - export JAVA_HOME=/usr/lib/jvm/jdk-17-oracle-x64
+    - export MAVEN_HOME=/usr/share/maven
+    - export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH
+    - echo $LD_LIBRARY_PATH
+    - echo $JAVA_HOME
+    - ls $JAVA_HOME
+    - which java
+    - which mvn
+    - mvn clean package
