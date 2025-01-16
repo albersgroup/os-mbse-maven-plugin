@@ -11,6 +11,10 @@
       <validate>
         aero.albers.osmbse:mdzip-validate-maven-plugin:mdzip-validate
       </validate>
+      <!-- Dependency resolution -->
+      <generate-resources>
+        org.apache.maven.plugins:maven-dependency-plugin:resolve
+      </generate-resources>
       <process-sources>
         aero.albers.osmbse:mdzip-process-sources-maven-plugin:mdzip-process-sources
       </process-sources>
