@@ -14,7 +14,7 @@ This project lays out a new custom packaging type in a pom file called mdzip and
       <groupId>aero.albers.osmbse</groupId>
       <artifactId>mdzip-base-maven-plugin</artifactId>
       <version>0.0.1</version>
-      <!-- declare that this plugin contributes the mdzip component extension -->
+      <!-- declare that this plugin contributes the mdzip component packaging -->
       <extensions>true</extensions>
     </plugin>
     ...
