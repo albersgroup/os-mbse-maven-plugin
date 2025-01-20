@@ -6,16 +6,39 @@
     <artifactId>maven-plugin</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
+
+    <name>Maven Plugin for mdzip packaging lifecycle</name>
+    <description>A maven plugin designed to add the mdzip packaging type and relevant staging for verifying, downloading, and deploying mdzip artifacts to a repository. </description>
+    <url>https://github.com/albersgroup/os-mbse-maven-plugin</url>
+
+    <licenses>
+        <license>
+            <name>GNU GPLv3</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.en.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <modules>
         <module>mdzip-base-maven-plugin</module>
         <module>mdzip-validate-maven-plugin</module>
         <module>mdzip-process-sources-maven-plugin</module>
     </modules>
 
-    <scm>
-        <url>https://github.com/albersgroup/os-mbse-maven-plugin</url>
-    </scm>
+    <organization>
+        <name>Albers Aerospace</name>
+        <url>https://www.albers.aero</url>
+    </organization>
 
+    <developers>
+        <developer>
+            <name>Nathan Woolley</name>
+            <email>nwoolley@albers.aero</email>
+            <organization>Albers Aerospace</organization>
+            <organizationUrl>https://www.albers.aero</organizationUrl>
+        </developer>
+    </developers>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>8</maven.compiler.source>
@@ -79,31 +102,22 @@
                 </executions>
             </plugin>
 
-            <!-- staging plugin -->
+            <!-- publishing plugin -->
+            <!-- see https://central.sonatype.org/publish/publish-portal-maven/#automatic-publishing -->
             <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.13</version>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.7.0</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    <publishingServerId>central</publishingServerId>
+                    <!--<autoPublish>true</autoPublish>-->
+                    <!-- <waitUntil>published</waitUntil> -->
                 </configuration>
             </plugin>
 
+
         </plugins>
     </build>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 
 </project>
