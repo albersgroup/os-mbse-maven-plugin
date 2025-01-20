@@ -1,39 +1,127 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>aero.albers.osmbse</groupId>
-  <artifactId>maven-plugin</artifactId>
-  <version>0.0.1</version>
-  <packaging>pom</packaging>
-  <modules>
-    <module>mdzip-base-maven-plugin</module>
-    <module>mdzip-validate-maven-plugin</module>
-    <module>mdzip-process-sources-maven-plugin</module>
-  </modules>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>aero.albers.osmbse</groupId>
+    <artifactId>maven-plugin</artifactId>
+    <version>0.0.1</version>
+    <packaging>pom</packaging>
 
-  <scm>
+    <name>Maven Plugin for mdzip packaging lifecycle</name>
+    <description>A maven plugin designed to add the mdzip packaging type and relevant staging for verifying, downloading, and deploying mdzip artifacts to a repository.</description>
     <url>https://github.com/albersgroup/os-mbse-maven-plugin</url>
-  </scm>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>8</maven.compiler.source>
-    <maven.compiler.target>8</maven.compiler.target>
-  </properties>
+    <licenses>
+        <license>
+            <name>GNU GPLv3</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.en.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.13.0</version>
-        <configuration>
-          <source>${maven.compiler.source}</source>
-          <target>${maven.compiler.target}</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+    <scm>
+        <connection>scm:git:git://github.com/albersgroup/os-mbse-maven-plugin.git</connection>
+        <developerConnection>scm:git:ssh://github.com:albersgroup/os-mbse-maven-plugin.git</developerConnection>
+        <url>http://github.com/albersgroup/os-mbse-maven-plugin/tree/master</url>
+    </scm>
+
+    <modules>
+        <module>mdzip-base-maven-plugin</module>
+        <module>mdzip-validate-maven-plugin</module>
+        <module>mdzip-process-sources-maven-plugin</module>
+    </modules>
+
+    <organization>
+        <name>Albers Aerospace</name>
+        <url>https://www.albers.aero</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <name>Nathan Woolley</name>
+            <email>nwoolley@albers.aero</email>
+            <organization>Albers Aerospace</organization>
+            <organizationUrl>https://www.albers.aero</organizationUrl>
+        </developer>
+    </developers>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+
+            <!-- plugins required for deploying -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- signing plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- publishing plugin -->
+            <!-- see https://central.sonatype.org/publish/publish-portal-maven/#automatic-publishing -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.7.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <!--<autoPublish>true</autoPublish>-->
+                    <!-- <waitUntil>published</waitUntil> -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
