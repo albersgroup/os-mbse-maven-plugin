@@ -116,6 +116,7 @@
                 <version>0.7.0</version>
                 <extensions>true</extensions>
                 <configuration>
+                    <deploymentName>${project.parent.groupId}:${project.parent.artifactId}:${project.version}</deploymentName>
                     <publishingServerId>central</publishingServerId>
                     <!--<autoPublish>true</autoPublish>-->
                     <!-- <waitUntil>published</waitUntil> -->
